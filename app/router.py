@@ -1,5 +1,13 @@
-from semantic_router import Route, RouteLayer
 from semantic_router.encoders import HuggingFaceEncoder
+from semantic_router import Route
+
+try:
+    from semantic_router import RouteLayer
+    USE_OLD = True
+except ImportError:
+    from semantic_router.routers import SemanticRouter
+    from semantic_router.index import LocalIndex
+    USE_OLD = False
 
 encoder = HuggingFaceEncoder(
     name="sentence-transformers/all-MiniLM-L6-v2"
@@ -40,7 +48,14 @@ small_talk = Route(
     ]
 )
 
-router = RouteLayer(encoder=encoder, routes=[faq, sql, small_talk])
+if USE_OLD:
+    router = RouteLayer(encoder=encoder, routes=[faq, sql, small_talk])
+else:
+    router = SemanticRouter(
+        encoder=encoder,
+        routes=[faq, sql, small_talk],
+        index=LocalIndex()
+    )
 
 if __name__ == "__main__":
     print(router("What is your policy on defective product?").name)
