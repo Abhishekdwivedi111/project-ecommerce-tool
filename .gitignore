@@ -1,0 +1,18 @@
+# Environment
+.env
+
+# Database
+app/db.sqlite
+web-scrapping/db.sqlite
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyd
+
+# Virtual environment
+ml_env/
+venv/
+
+# Streamlit
+.streamlit/

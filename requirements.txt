@@ -1,0 +1,9 @@
+streamlit
+pandas
+pandasql
+python-dotenv
+groq
+semantic-router[local]==0.0.20
+chromadb==0.4.24
+sentence_transformers
+numpy==1.26.4
